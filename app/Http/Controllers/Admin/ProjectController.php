@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\Type;
 use App\Http\Requests\StoreProjectRequest;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -24,16 +25,16 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        $types = Type::all();
+        return view('admin.projects.create', compact('types'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreProjectRequest $request)
-    {   
-        // validazione unicità del nome nuovi item
-        $projectData = $request->all();
+    {
+        // Validazione e salvataggio del progetto
+        $projectData = $request->validated();
 
         // Creare una nuova istanza di Project
         $newProject = new Project();
@@ -45,9 +46,8 @@ class ProjectController extends Controller
         // Salvare il progetto
         $newProject->save();
 
-        // Reindirizzare alla lista dei progetti con un messaggio di successo (with)
-
-        return redirect()->route('admin.projects.index')->with('success', 'Project created successfully');;
+        // Reindirizzare alla lista dei progetti con un messaggio di successo
+        return redirect()->route('admin.projects.index')->with('success', 'Project created successfully');
     }
 
     /**
@@ -55,7 +55,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::findOrFail($id);
+        $project = Project::with('type')->findOrFail($id);
         return view('admin.projects.show', compact('project'));
     }
 
@@ -65,7 +65,8 @@ class ProjectController extends Controller
     public function edit($id)
     {
         $project = Project::findOrFail($id);
-        return view('admin.projects.edit', compact('project'));
+        $types = Type::all();
+        return view('admin.projects.edit', compact('project', 'types'));
     }
 
     /**
@@ -76,6 +77,7 @@ class ProjectController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
+            'type_id' => 'nullable|exists:types,id',
         ]);
 
         $project = Project::findOrFail($id);
@@ -91,11 +93,10 @@ class ProjectController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
-    {
-        {
+    { {
             $project = Project::findOrFail($id);
             $project->delete();
-    
+
             return redirect()->route('admin.projects.index')->with('success', 'Project deleted successfully');
         }
     }

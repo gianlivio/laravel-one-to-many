@@ -16,8 +16,7 @@
                         @if (session('success'))
                             <div class="alert alert-success alert-dismissible fade show" role="alert">
                                 {{ session('success') }}
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
                         @if ($errors->any())
@@ -27,8 +26,7 @@
                                         <li>{{ $error }}</li>
                                     @endforeach
                                 </ul>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                    aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                             </div>
                         @endif
                         <div class="row">
@@ -38,16 +36,18 @@
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $project->name }}</h5>
                                             <p class="card-text">{{ Str::limit($project->description, 50) }}</p>
-                                            <a href="{{ route('admin.projects.show', $project->id) }}"
-                                                class="btn btn-info"><i class="fas fa-eye"></i> View</a>
-                                            <a href="{{ route('admin.projects.edit', $project->id) }}"
-                                                class="btn btn-primary"><i class="fas fa-edit"></i> Edit</a>
-                                            <form action="{{ route('admin.projects.destroy', $project->id) }}"
-                                                method="POST" style="display:inline-block;">
+                                            <a href="{{ route('admin.projects.show', $project->id) }}" class="btn btn-info">
+                                                <i class="fas fa-eye"></i> View
+                                            </a>
+                                            <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-primary">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </a>
+                                            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST" style="display:inline-block;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger"><i
-                                                        class="fas fa-trash-alt"></i> Delete</button>
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fas fa-trash-alt"></i> Delete
+                                                </button>
                                             </form>
                                         </div>
                                     </div>

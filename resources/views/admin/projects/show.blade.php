@@ -13,13 +13,12 @@
                     <div class="card-body">
                         <p><strong>Name:</strong> {{ $project->name }}</p>
                         <p><strong>Description:</strong> {{ $project->description }}</p>
-                        @if ($project->type)
-                            <p><strong>Tipologia:</strong> {{ $project->type->name }}</p>
-                        @else
-                            <p><strong>Tipologia:</strong> Nessuna</p>
-                        @endif
+                        <p><strong>Tipologia:</strong> {{ $project->type ? $project->type->name : 'Nessuna' }}</p>
                         <p><strong>Slug:</strong> {{ $project->slug }}</p>
                     </div>
+                    <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-primary">Modifica</a>
+                    <a href="{{ route('admin.projects.index') }}" class="btn btn-secondary">Indietro</a>
+
                 </div>
             </div>
         </div>

@@ -15,8 +15,8 @@ class TypeSeeder extends Seeder
     {
         {
             DB::table('types')->insert([
-                ['name' => 'Matematica', 'description' => 'Progetti relativi alla matematica'],
-                ['name' => 'Fisica', 'description' => 'Progetti relativi alla fisica'],
+                ['name' => 'Musica', 'description' => 'Progetti relativi alla matematica'],
+                ['name' => 'Agricoltura', 'description' => 'Progetti relativi alla fisica'],
                 ['name' => 'Informatica', 'description' => 'Progetti relativi all\'informatica'],
             ]);
         }
