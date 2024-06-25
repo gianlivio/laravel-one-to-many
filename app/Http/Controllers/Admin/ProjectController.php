@@ -33,21 +33,15 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        // Validazione e salvataggio del progetto
         $projectData = $request->validated();
 
-        // Creare una nuova istanza di Project
         $newProject = new Project();
         $newProject->fill($projectData);
-
-        // Generare lo slug dal nome
         $newProject->slug = Str::slug($newProject->name, '_');
-
-        // Salvare il progetto
         $newProject->save();
 
-        // Reindirizzare alla lista dei progetti con un messaggio di successo
         return redirect()->route('admin.projects.index')->with('success', 'Project created successfully');
+
     }
 
     /**

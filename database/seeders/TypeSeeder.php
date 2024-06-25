@@ -12,13 +12,19 @@ class TypeSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
-        {
-            DB::table('types')->insert([
-                ['name' => 'Musica', 'description' => 'Progetti relativi alla matematica'],
-                ['name' => 'Agricoltura', 'description' => 'Progetti relativi alla fisica'],
+    { 
+            $types = [
+                ['name' => 'Musica', 'description' => 'Progetti relativi alla musica'],
+                ['name' => 'Agricoltura', 'description' => 'Progetti relativi all\'agricoltura'],
                 ['name' => 'Informatica', 'description' => 'Progetti relativi all\'informatica'],
-            ]);
-        }
+            ];
+
+            foreach ($types as $type) {
+                DB::table('types')->updateOrInsert(
+                    ['name' => $type['name']],
+                    ['description' => $type['description']]
+                );
+            }
+        
     }
 }
