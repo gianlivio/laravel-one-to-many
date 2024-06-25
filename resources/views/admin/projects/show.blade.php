@@ -13,6 +13,11 @@
                     <div class="card-body">
                         <p><strong>Name:</strong> {{ $project->name }}</p>
                         <p><strong>Description:</strong> {{ $project->description }}</p>
+                        @if ($project->type)
+                            <p><strong>Tipologia:</strong> {{ $project->type->name }}</p>
+                        @else
+                            <p><strong>Tipologia:</strong> Nessuna</p>
+                        @endif
                         <p><strong>Slug:</strong> {{ $project->slug }}</p>
                     </div>
                 </div>
